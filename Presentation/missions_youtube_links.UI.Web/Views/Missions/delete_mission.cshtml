@@ -1,0 +1,73 @@
+﻿@model missions_youtube_links.Entities.missions_links_dto
+
+@{
+    ViewBag.Title = "Delete Mission Link";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="page-title">Delete Mission link</h2>
+
+
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Delete</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Delete</button>
+                <button type="button" class="btn btn-primary">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+
+        <article>
+            <div class="pad">
+
+                <div class="form-group">
+                    <a href="~/Missions/Delete?id=@Model.id" id="btndelete" class="btn btn-danger btn_class" onclick="return confirm('Are you sure you want to delete?');"><i class="fas fa-trash-alt text-white"></i>Delete</a>
+
+                </div>
+
+            </div>
+        </article>
+
+
+        <div class="form-group div_btn">
+            @Html.ActionLink("Missions", "Index", "Missions", null, new { @class = "btn btn-primary btn_class" })
+        </div>
+
+    </fieldset>
+}
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".alert").delay(5000).fadeOut(5000, function () {
+                $(this).remove();
+            })
+
+            $("#deleteModal").modal("show");
+
+        });
+
+    </script>
+}

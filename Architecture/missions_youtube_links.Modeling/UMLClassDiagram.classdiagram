@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="d8e72d8c-26fc-44b6-a266-c12fa92d1edb" name="UMLClassDiagram" linkedPackageId="0f3a92a5-1273-4189-a518-95fa663c2311" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
+  <profileInstances>
+    <packageHasProfileInstances Id="6761edfa-32cf-4661-9ffd-bb03f775db06">
+      <profileInstance Id="41df3ef4-674e-4338-8122-25a82f36eb50" name="StandardProfileL2">
+        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+      </profileInstance>
+      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances Id="84ed82d2-a15e-454c-88dd-6c36bd333671">
+      <profileInstance Id="d34aa8a7-1db0-4f5b-b0af-c5bd72e3721a" name="StandardProfileL3">
+        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+      </profileInstance>
+      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="82463aca-27b6-41e6-a526-75772b3903e4" name="Mission" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="70f2dab6-d8f8-4d65-8033-2517a4b4b24a" />
+        <ownedAttributesInternal>
+          <property Id="e2bf182a-2c1a-4369-a1d8-7b94d2569398" name="YouTube Url" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="10008366-f756-47af-a316-c938df44c8a2" />
+          </property>
+          <property Id="480db399-ff84-45de-b8ed-0cf29180c64f" name="Description" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="4a2a3514-ab99-498a-8bed-37e6facf43e6" />
+          </property>
+          <property Id="506f532d-66af-4d31-9c98-360598e4b9c2" name="Location" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="ebcba83e-9847-4e25-817e-c9ecdc0ec16a" />
+          </property>
+          <property Id="d9ab9fdc-dae1-4194-a872-4863bc049298" name="Type" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="7f39ccf9-2733-4b32-a6e1-0ea9d98ff87d" />
+          </property>
+          <property Id="cd6dde68-b9d4-4494-a8e4-693ca17c68d2" name="Year" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="18a44d1e-bd6f-4370-8936-28dd6cb6f35a" />
+          </property>
+          <property Id="911af70a-9de5-4cfd-b118-20cf0b2e6429" name="Month" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="a0833c34-fe21-4547-b9ca-4a4410dd5804" />
+          </property>
+          <property Id="7fdc916f-8dcc-4593-8cf3-0c40f1e52463" name="Day" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="c7b195dd-2781-404c-879f-529f0d96d91d" />
+          </property>
+          <property Id="fd9f5e39-2f97-4607-9075-b9b3a5b8ee13" name="Status" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="c472a07f-6dee-436a-91e9-5de24af48ef9" />
+          </property>
+          <property Id="5a2ae4b8-96e1-4d81-a96b-3535842a5d5e" name="Created Date" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="6ef81a59-bcff-412d-a4ab-141a0f5bc313" />
+          </property>
+          <property Id="32fbf556-2484-4499-8e3a-d8245b5d620c" name="Id" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="2c5621ff-99bf-4a0b-b123-c2fe17f2df04" />
+          </property>
+        </ownedAttributesInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="4ca5797a-08cd-4e13-81be-9674225de8b3" name="Type" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="7a6a3219-df91-4205-aad0-3020760ad6ae" />
+        <ownedAttributesInternal>
+          <property Id="ed5f2689-59f9-41e5-bb0e-fb5cb164bf4a" name="Id" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="e1e9c192-175f-4477-b229-25d07144e7a2" />
+          </property>
+          <property Id="3cbdf567-cd47-4b31-bb52-634ac78319bd" name="Description" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="a63ef003-ce84-45a7-a883-bdd59e155438" />
+          </property>
+          <property Id="636963f6-f707-4967-b8f1-ca893a04c63f" name="Created Date" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="935a87b9-cfa9-49dc-9e8b-a9fb17bc479e" />
+          </property>
+        </ownedAttributesInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+  </packagedElements>
+  <package Id="0f3a92a5-1273-4189-a518-95fa663c2311" name="missions_youtube_links.Modeling">
+    <elementDefinition Id="732b641e-c3b0-490c-a60e-8eba62cf13eb" />
+  </package>
+</logicalClassDesignerModel>

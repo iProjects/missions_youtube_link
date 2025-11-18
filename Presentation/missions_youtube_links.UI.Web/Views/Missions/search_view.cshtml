@@ -1,0 +1,24 @@
+﻿
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $(".alert").delay(5000).fadeOut(5000, function () {
+                $(this).remove();
+            })
+
+            $("#deleteModal").modal("show");
+
+            $("#frm_search").on('submit', function (event) {
+                event.preventDefault();
+                var form = $(this).serialize();
+                console.log(form);
+
+            });
+        });
+
+    </script>
+}

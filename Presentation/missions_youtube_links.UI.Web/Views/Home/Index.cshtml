@@ -1,0 +1,346 @@
+﻿@model missions_youtube_links.UI.Web.Models.missions_view_model
+
+@{
+    ViewBag.Title = "Missions";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "frm_search" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+
+        <article>
+            <div class="pad">
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.dto.mission_type, htmlAttributes: new { @class = "form-label" })
+                    @Html.DropDownListFor(model => model.dto.mission_type, new SelectList(Model.dto.mission_types, "Value", "Text"), new { @class = "form-control", @id = "cbomission_types" })
+                    @Html.ValidationMessageFor(model => model.dto.mission_type, "", new { @class = "lbl_error text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.dto.mission_year, htmlAttributes: new { @class = "form-label" })
+                    @Html.DropDownListFor(model => model.dto.mission_year, new SelectList(Model.dto.mission_years, "Value", "Text"), new { @class = "form-control", @id = "cboyears" })
+                    @Html.ValidationMessageFor(model => model.dto.mission_year, "", new { @class = "lbl_error text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.dto.mission_month, htmlAttributes: new { @class = "form-label" })
+                    @Html.DropDownListFor(model => model.dto.mission_month, new SelectList(Model.dto.mission_months, "Value", "Text"), new { @class = "form-control", @id = "cbomonths" })
+                    @Html.ValidationMessageFor(model => model.dto.mission_month, "", new { @class = "lbl_error text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.dto.mission_day, htmlAttributes: new { @class = "form-label" })
+                    @Html.DropDownListFor(model => model.dto.mission_day, new SelectList(Model.dto.mission_days, "Value", "Text"), new { @class = "form-control", @id = "cbodays" })
+                    @Html.ValidationMessageFor(model => model.dto.mission_day, "", new { @class = "lbl_error text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.dto.location, htmlAttributes: new { @class = "form-label" })
+                    @Html.EditorFor(model => model.dto.location, new { htmlAttributes = new { @required = "required", @class = "form-control", @placeholder = "Location", @id = "txtlocation" } })
+                    @Html.ValidationMessageFor(model => model.dto.location, "", new { @class = "lbl_error text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.dto.youtube_url, htmlAttributes: new { @class = "form-label" })
+                    @Html.EditorFor(model => model.dto.youtube_url, new { htmlAttributes = new { @required = "required", @class = "form-control", @placeholder = "Youtube Url", @id = "txtyoutube_url" } })
+                    @Html.ValidationMessageFor(model => model.dto.youtube_url, "", new { @class = "lbl_error text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.dto.description, htmlAttributes: new { @class = "form-label" })
+                    @Html.EditorFor(model => model.dto.description, new { htmlAttributes = new { @required = "required", @class = "form-control", @placeholder = "Description", @id = "txtdescription" } })
+                    @Html.ValidationMessageFor(model => model.dto.description, "", new { @class = "lbl_error text-danger" })
+                </div>
+
+            </div>
+        </article>
+
+        <div class="form-group div_btn">
+            <input type="submit" value="Search" id="btnsearch" class="btn btn-success btn_class" />
+            <input type="button" value="Clear Search" id="btn_clear_search" class="btn btn-danger btn_class" />
+        </div>
+
+    </fieldset>
+}
+
+<hr />
+
+<h2 id="lbl_page_title">Missions [ @Model.lst_dto.ToList().Count  ]</h2>
+
+<section id="projects" classname="projects">
+    <div classname="container">
+
+        @*<h2 classname="heading">Missions</h2>*@
+        <div classname="projectGrid" id="projectGrid">
+            @foreach (var item in Model.lst_dto)
+            {
+                <div class="projectCard">
+                    <h3 class="projectTitle">@item.id</h3>
+                    <p class="projectDescription">@item.description</p>
+
+                    <div class="projectLinks">
+                        <a href="@item.youtube_url"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           classname="projectLink">
+                            @item.youtube_url
+                        </a>
+
+
+                    </div>
+
+                    <div class="details_container">
+                        <p class="mission_details">Type: @item.mission_type</p>
+                        <p class="mission_details">Location: @item.location</p>
+                        <p class="mission_details">Year: @item.mission_year</p>
+                        <p class="mission_details">Month: @(String.Format("{0}({1})", item.mission_month_str, item.mission_month))</p>
+                        <p class="mission_details">Day: @(String.Format("{0}({1})", item.mission_day_str, item.mission_day))</p>
+                    </div>
+
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+
+
+@section Scripts {
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            document.getElementById('btn_clear_search').addEventListener('click', function (event) {
+                event.preventDefault();
+                clear_search();
+            });
+
+            document.getElementById('btnsearch').addEventListener('click', function (event) {
+                event.preventDefault();
+                search();
+            });
+
+            document.getElementById('cbomonths').addEventListener('change', function (event) {
+                event.preventDefault();
+                load_month_days();
+            });
+
+            var records_count = @Model.lst_dto.ToList().Count;
+            $("#btn_home").text(" Home [" + records_count + "]");
+
+            function search() {
+                try {
+
+                    var mission_type = $("#cbomission_types").val();
+                    var mission_year = $("#cboyears").val();
+                    var mission_month = $("#cbomonths").val();
+                    var mission_day = $("#cbodays").val();
+                    var location = $("#txtlocation").val();
+                    var description = $("#txtdescription").val();
+                    var youtube_url = $("#txtyoutube_url").val();
+                    $("#chk_choose_all_records").prop("checked", false);
+
+                    $("#projectGrid").html("");
+
+                    $.ajax({
+                        url: '@Url.Action("search", "Missions")',
+                        type: 'POST',
+                        data: {
+                            "mission_type": mission_type,
+                            "mission_year": mission_year,
+                            "mission_month": mission_month,
+                            "mission_day": mission_day,
+                            "location": location,
+                            "description": description,
+                            "youtube_url": youtube_url
+                        },
+                        success: function (data) {
+                            console.log(data);
+                            var links = data.lst_dto;
+                            console.log(links);
+                            var count = links.length;
+                            console.log(count);
+                            $("#btn_missions").text(" Missions [ " + count + " ]");
+                            $("#lbl_page_title").text(" Missions [ " + count + " ]");
+                            $("#projectGrid").html("");
+
+                            var row = "";
+                            $.each(links, function (index, item) {
+
+                                row += "<div class='projectCard'>";
+
+                                row += "<h3 class='projectTitle'>" + item.id + "</h3>";
+                                row += "<p class='projectDescription'>" + item.description + "</p>";
+
+                                row += "<div class='projectLinks'>";
+                                row += "<a href='" + item.youtube_url + "'";
+                                row += "target='_blank'";
+                                row += "rel='noopener noreferrer'";
+                                row += "classname='projectLink' >";
+                                row += item.youtube_url;
+                                row += "</a>";
+                                row += "</div>";
+
+                                row += "<div class='details_container'>";
+                                row += "<p class='mission_details'>Type: " + item.mission_type + "</p>";
+                                row += "<p class='mission_details'>Location: " + item.location + "</p>";
+                                row += "<p class='mission_details'>Year: " + item.mission_year + "</p>";
+                                row += "<p class='mission_details'>Month: " + item.mission_month_str + "(" + item.mission_month + ") </p>";
+                                row += "<p class='mission_details'>Day: " + item.mission_day_str + "(" + item.mission_day + ") </p>";
+                                row += "</div>";
+
+                                row += "</div>";
+
+                            });
+                            $("#projectGrid").html(row);
+                        }
+                    });
+
+                } catch (error) {
+                    console.error(error);
+                }
+            }
+
+            function clear_search() {
+                try {
+
+                    $("#cbomission_types").val(null);
+                    $("#cboyears").val(null);
+                    $("#cbomonths").val(null);
+                    $("#cbodays").val(null);
+                    $("#txtlocation").val("");
+                    $("#txtdescription").val("");
+                    $("#txtyoutube_url").val("");
+                    $("#chk_choose_all_records").prop("checked", false);
+
+                    var mission_type = $("#cbomission_types").val();
+                    var mission_year = $("#cboyears").val();
+                    var mission_month = $("#cbomonths").val();
+                    var mission_day = $("#cbodays").val();
+                    var location = $("#txtlocation").val();
+                    var description = $("#txtdescription").val();
+                    var youtube_url = $("#txtyoutube_url").val();
+
+                    $("#projectGrid").html("");
+
+                    $.ajax({
+                        url: '@Url.Action("search", "Missions")',
+                        type: 'POST',
+                        data: {
+                            "mission_type": mission_type,
+                            "mission_year": mission_year,
+                            "mission_month": mission_month,
+                            "mission_day": mission_day,
+                            "location": location,
+                            "description": description,
+                            "youtube_url": youtube_url
+                        },
+                        success: function (data) {
+                            console.log(data);
+                            var links = data.lst_dto;
+                            console.log(links);
+                            var count = links.length;
+                            console.log(count);
+                            $("#btn_missions").text(" Missions [ " + count + " ]");
+                            $("#lbl_page_title").text(" Missions [ " + count + " ]");
+                            $("#projectGrid").html("");
+
+                            var row = "";
+                            $.each(links, function (index, item) {
+
+                                row += "<div class='projectCard'>";
+
+                                row += "<h3 class='projectTitle'>" + item.id + "</h3>";
+                                row += "<p class='projectDescription'>" + item.description + "</p>";
+
+                                row += "<div class='projectLinks'>";
+                                row += "<a href='" + item.youtube_url + "'";
+                                row += "target='_blank'";
+                                row += "rel='noopener noreferrer'";
+                                row += "classname='projectLink' >";
+                                row += item.youtube_url;
+                                row += "</a>";
+                                row += "</div>";
+
+                                row += "<div class='details_container'>";
+                                row += "<p class='mission_details'>Type: " + item.mission_type + "</p>";
+                                row += "<p class='mission_details'>Location: " + item.location + "</p>";
+                                row += "<p class='mission_details'>Year: " + item.mission_year + "</p>";
+                                row += "<p class='mission_details'>Month: " + item.mission_month_str + "(" + item.mission_month + ") </p>";
+                                row += "<p class='mission_details'>Day: " + item.mission_day_str + "(" + item.mission_day + ") </p>";
+                                row += "</div>";
+
+                                row += "</div>";
+
+                            });
+                            $("#projectGrid").html(row);
+                        }
+                    });
+
+                } catch (error) {
+                    console.error(error);
+                }
+            }
+
+            function load_month_days() {
+                var selectedyear = $("#cboyears").val();
+                var selectedmonth = $("#cbomonths").val();
+                var cbodays = $("#cbodays");
+
+                console.log(selectedyear);
+                console.log(selectedmonth);
+
+                if (selectedyear == '' && selectedmonth == '') {
+                    var my_val = $("#cbodays option:first").val();
+                    $("#cbodays").val("");
+                    return;
+                }
+
+                $.getJSON('@Url.Action("getmonthdays", "Missions")',
+                    {
+                        year: selectedyear,
+                        month: selectedmonth
+                    }, function (days) {
+                        console.log(days);
+                        if (days != null && !jQuery.isEmptyObject(days)) {
+                            cbodays.empty();
+                            cbodays.append($('<option/>', {
+                                value: "",
+                                text: "--- Select Day ---"
+                            }))
+                            $.each(days, function (index, day) {
+                                console.log(day);
+                                console.log(index);
+                                cbodays.append($('<option/>', {
+                                    value: day.Value,
+                                    text: day.Text
+                                }))
+                            })
+                        }
+                        var my_val = $("#cbodays option:last").val();
+                        $("#cbodays").val(my_val);
+                    });
+            }
+
+
+
+
+        });
+
+
+    </script>
+}
+
+
+
+
+
+
+
+

@@ -1,0 +1,97 @@
+﻿@model missions_youtube_links.Entities.contact_us_dto
+
+@{
+    ViewBag.Title = "Contact Us";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="page-title">Contact Us</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Ensure all required fields are filled.</legend>
+
+        <div class="pad">
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "form-label" })
+                @Html.EditorFor(model => model.name, new { htmlAttributes = new { @required = "required", @class = "form-control", @placeholder = "Name" } })
+                @Html.ValidationMessageFor(model => model.name, "", new { @class = "lbl_error text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "form-label" })
+                @Html.EditorFor(model => model.email, new { htmlAttributes = new { @required = "required", @class = "form-control", @placeholder = "Email", @type = "email" } })
+                @Html.ValidationMessageFor(model => model.email, "", new { @class = "lbl_error text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.phone_no, htmlAttributes: new { @class = "form-label" })
+                @Html.EditorFor(model => model.phone_no, new { htmlAttributes = new { @required = "required", @class = "form-control", @placeholder = "Phone No" } })
+                @Html.ValidationMessageFor(model => model.phone_no, "", new { @class = "lbl_error text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.message, htmlAttributes: new { @class = "form-label" })
+                @Html.TextAreaFor(model => model.message, new { @required = "required", @class = "form-control", @placeholder = "Message" })
+                @Html.ValidationMessageFor(model => model.message, "", new { @class = "lbl_error text-danger" })
+            </div>
+
+        </div>
+
+        <div class="form-group div_btn">
+            <input type="submit" value="Send" class="btn btn-success btn_class" />
+        </div>
+
+    </fieldset>
+}
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $(".alert").delay(5000).fadeOut(5000, function () {
+                $(this).remove();
+            })
+
+            $("#youtube_url").focus();
+
+            $("#cbomonths").on("change",function () {
+                var selectedyear = $("#cboyears").val();
+                var selectedmonth = $("#cbomonths").val();
+                var cbodays = $("#cbodays");
+                cbodays.empty();
+                if (selectedyear != null && selectedyear != '' && selectedmonth != null && selectedmonth != '') {
+                    &.getJSON("@Url.Action("getmonthdays")",
+                        {
+                            year: selectedyear,
+                            month: selectedmonth
+                        }, function(days){
+                            console.log(days);
+                            if(days != null && !jQuery.isEmptyObject(days))
+                            {
+                                $.each(days, function(index, day){
+                                    console.log(day);
+                                    console.log(index);
+                                    cbodays.append($('<option/>', {
+                                        value: day.Value,
+                                        text: day.Text
+                                    }))
+                                })
+                            }
+                        }
+
+                        )
+                }
+            });
+        });
+
+    </script>
+}
